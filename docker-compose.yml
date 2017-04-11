@@ -5,7 +5,7 @@ services:
   nodered:
     image: nodered/node-red-docker:rpi
     expose: "1880"
-    volumes: .:/nodered
+    volumes: nodered:/data
     restart_policy:
       condition: on-failure
       delay: 5s
@@ -13,7 +13,7 @@ services:
 
   noip:
     image: "hypriot/rpi-noip"
-    volumes: .:/noip
+    volumes: noip:/usr/local/etc/
     restart_policy:
       condition: on-failure
       delay: 5s
