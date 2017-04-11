@@ -4,18 +4,15 @@ services:
 
   nodered:
     image: nodered/node-red-docker:rpi
-    expose: "1880"
-    volumes: nodered:/data
-    restart_policy:
-      condition: on-failure
-      delay: 5s
-      max_attempts: 3
+    expose:
+      - "1880"
+    volumes:
+      - nodered:/data
 
   noip:
     image: "hypriot/rpi-noip"
-    volumes: noip:/usr/local/etc/
-    restart_policy:
-      condition: on-failure
-      delay: 5s
-      max_attempts: 3
+    volumes:
+      - ./config/no-ip2.conf:/usr/local/etc/no-ip2.conf
 
+volumes:
+  nodered:
