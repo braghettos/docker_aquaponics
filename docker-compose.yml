@@ -3,15 +3,18 @@ version: '3'
 services:
 
   nodered:
+#    image: braghettos/node-red-docker:rpi
     image: nodered/node-red-docker:rpi
     ports:
-      - 1880:1880
+      - "1880:1880"
     volumes:
-      - nodered:/data
-    command: bash -c "sudo apt-get update && sudo apt-get install python-rpi.gpio python3-rpi.gpio"
+      - "~/.node-red:/data"
+    devices:
+      - "/dev/ttyAMA0:/dev/ttyAMA0"
+    user: root
 
   noip:
-    image: "hypriot/rpi-noip"
+    image: hypriot/rpi-noip
     volumes:
       - ./config/no-ip2.conf:/usr/local/etc/no-ip2.conf
 
