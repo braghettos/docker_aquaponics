@@ -10,7 +10,7 @@ services:
     volumes:
       - "~/.node-red:/data"
     devices:
-      - "/dev/ttyAMA0:/dev/ttyAMA0"
+      - "/dev/serial0:/dev/serial0"
     user: root
 
   noip:
