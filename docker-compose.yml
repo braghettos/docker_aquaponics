@@ -3,15 +3,16 @@ version: '3'
 services:
 
   nodered:
-#    image: braghettos/node-red-docker:rpi
-    image: nodered/node-red-docker:rpi
+    image: braghettos/node-red-docker:0.17.3-rpi
     ports:
-      - "1880:1880"
+      - "1881:1880"
     volumes:
-      - "~/.node-red:/data"
+      - "~/.node-red-docker:/data"
     devices:
       - "/dev/serial0:/dev/serial0"
     user: root
+    environment:
+      - NODE_OPTIONS=--max_old_space_size=128
 
   noip:
     image: hypriot/rpi-noip

@@ -1,0 +1,28 @@
+FROM nodered/node-red-docker:0.17.5-rpi
+
+RUN npm install node-red-node-serialport xbee-api node-red-contrib-xbee node-red-contrib-chatbot node-red-contrib-python-function node-red-node-twitter node-red-contrib-ibm-watson-iot node-red-contrib-play-audio
+
+USER root
+
+RUN mkdir /mydata
+
+COPY ./config/flows.json /mydata/
+COPY ./config/settings.js /mydata/
+
+COPY ./config/flows_cred.json /mydata/
+
+#RUN sudo chown -R node-red /mydata
+
+#RUN ls -la /mydata
+
+RUN mkdir /cert
+
+COPY ./cert/cert.pem /cert
+COPY ./cert/key.pem /cert
+
+RUN apt-get update && apt-get install -y \
+        python-pip && sudo pip install requests --upgrade
+
+ENV FLOWS=/mydata/flows.json
+
+CMD ["npm", "start", "--", "--userDir", "/data", "--setting","/mydata/settings.js"]
