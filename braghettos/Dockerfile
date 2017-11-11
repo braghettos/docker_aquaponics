@@ -7,8 +7,6 @@ RUN npm install node-red-node-serialport xbee-api node-red-contrib-xbee node-red
 COPY ./config/flows.json /data/
 COPY ./config/settings.js /data/
 
-#RUN ls -la /data
-
 RUN mkdir /cert
 
 COPY ./cert/cert.pem /cert
@@ -17,6 +15,4 @@ COPY ./cert/key.pem /cert
 RUN apt-get update && apt-get install -y \
         python-pip && sudo pip install requests plotly --upgrade
 
-ENV FLOWS=/data/flows.json
-
-#CMD ["npm", "start", "--", "--userDir", "/data", "--setting","/data/settings.js"]
+CMD ["npm", "start", "--", "--userDir", "/data", "--setting","/data/settings.js"]
